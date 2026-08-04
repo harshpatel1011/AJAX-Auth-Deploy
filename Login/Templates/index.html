@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Premium Portal{% endblock %}
+{% block content %}
+<div class="app-container">
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <div class="header-text">
+                    <h1>Dashboard</h1>
+                    <p>Your secure account portal</p>
+                </div>
+                <a href="{% url 'logout' %}" class="btn-secondary">
+                    <span>Log Out</span>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+            
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-title">
+                        <h2>Welcome, {{ name }}!</h2>
+                        <p>Member Status: Active</p>
+                    </div>
+                </div>
+                
+                <h3 class="form-section-title" style="margin-top: 1rem;">Profile Details</h3>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Name</span>
+                        <span class="detail-value">{{ name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Email Address</span>
+                        <span class="detail-value">{{ email }}</span>
+                    </div>
+                </div>
+
+                <h3 class="form-section-title" style="margin-top: 2.5rem;">Private Account Data</h3>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">User Database ID</span>
+                        <span class="detail-value" style="font-family: monospace;">{{ user_id }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Session Key (Active)</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.85rem; word-break: break-all; color: var(--text-secondary);">{% if session_key %}{{ session_key }}{% else %}No active session key{% endif %}</span>
+                    </div>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                        <span class="detail-label">Password Hash (Hashed)</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.85rem; word-break: break-all; color: var(--text-secondary);" title="{{ password_hash }}">{{ password_hash }}</span>
+                    </div>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                        <span class="detail-label">Active HTTP Cookies (Session ID & tokens)</span>
+                        <pre style="font-family: monospace; font-size: 0.85rem; background-color: var(--bg-card-hover); padding: 1rem; border: 1px solid var(--border-color); overflow-x: auto; color: var(--text-secondary); margin-top: 0.25rem;">{{ cookies_json }}</pre>
+                    </div>
+                </div>
+
+                <h3 class="form-section-title" style="margin-top: 2.5rem;">Active Session Security</h3>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Session Expiry Date</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.95rem;">{{ session_expiry_date }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Session Expiry Age (Seconds)</span>
+                        <span class="detail-value" style="font-family: monospace;">{{ session_expiry_age }} s</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Expires on Browser Close</span>
+                        <span class="detail-value" style="font-family: monospace; font-weight: 500;">{{ session_expire_on_close }}</span>
+                    </div>
+                </div>
+
+                <h3 class="form-section-title" style="margin-top: 2.5rem;">Request Diagnostics</h3>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Request URL</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.9rem; word-break: break-all;">{{ request_url }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Client IP Address</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.95rem;">{{ client_ip }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Request Method</span>
+                        <span class="detail-value" style="font-family: monospace; font-weight: 600; color: var(--primary);">{{ request_method }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Status Code</span>
+                        <span class="detail-value" style="font-family: monospace; font-weight: 600; color: var(--success);"><i class="fa-solid fa-circle-check" style="margin-right: 4px;"></i>{{ status_code }} OK</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">HTTP Referer</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.9rem;">{{ referer }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Accept Language</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.9rem;">{{ accept_language }}</span>
+                    </div>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                        <span class="detail-label">User Agent</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.85rem; color: var(--text-secondary);">{{ user_agent }}</span>
+                    </div>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                        <span class="detail-label">CSRF Token</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.85rem; word-break: break-all; color: var(--text-secondary);" title="{{ csrf_token }}">{{ csrf_token }}</span>
+                    </div>
+                </div>
+
+                <h3 class="form-section-title" style="margin-top: 2.5rem;">System & Database Configuration</h3>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Database Engine</span>
+                        <span class="detail-value" style="font-family: monospace;"><i class="fa-solid fa-database" style="margin-right: 4px;"></i>{{ db_engine }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Database Name/File</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.9rem; word-break: break-all;">{{ db_name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Django Debug Mode</span>
+                        <span class="detail-value" style="font-family: monospace; font-weight: 600; color: {% if debug_mode == 'Enabled' %}var(--warning){% else %}var(--success){% endif %};">{{ debug_mode }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Server Timezone</span>
+                        <span class="detail-value" style="font-family: monospace;">{{ timezone }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Server Local Time</span>
+                        <span class="detail-value" style="font-family: monospace;">{{ server_time }}</span>
+                    </div>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                        <span class="detail-label">Server Runtime Environment</span>
+                        <span class="detail-value" style="font-family: monospace; font-size: 0.9rem; color: var(--text-secondary);"><i class="fa-brands fa-python" style="margin-right: 4px;"></i>Python {{ python_version }} &nbsp;|&nbsp; <i class="fa-solid fa-server" style="margin-right: 4px;"></i>Django {{ django_version }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

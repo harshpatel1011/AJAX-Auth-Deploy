@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up - Premium Portal{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="page-header">
+            <div class="header-text">
+                <h1>Sign Up</h1>
+                <p>Create a premium account</p>
+            </div>
+        </div>
+
+        <div id="error-alert"
+            style="display: none; padding: 0.75rem 1rem; border: 1px solid var(--danger); color: var(--danger); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; text-align: center; margin-bottom: 1rem;">
+        </div>
+
+        <form id="signup-form">
+            {% csrf_token %}
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="name">name</label>
+                    <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-input" type="password" id="password" name="password" required
+                        autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="confirm_password">Confirm Password</label>
+                    <input class="form-input" type="password" id="confirm_password" name="confirm_password" required
+                        autocomplete="new-password">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btn-signup" style="margin-top: 1rem;">
+                <span>Sign Up</span>
+                <i class="fa-solid fa-user-plus"></i>
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="{% url 'login' %}">Log In</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#signup-form").submit(function (e) {
+        e.preventDefault();
+
+        var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
+
+        var btn = $("#btn-signup");
+        btn.prop('disabled', true).find('span').text("Signing Up...");
+
+        $.ajax({
+            url: "{% url 'signup' %}",
+            method: 'POST',
+            headers: {
+                "X-CSRFToken": csrftoken
+            },
+            data: {
+                name: $("#name").val(),
+                email: $("#email").val(),
+                password: $("#password").val(),
+                confirm_password: $("#confirm_password").val()
+            },
+            success: function (response) {
+                if (response.status === 'success') {
+                    window.location.href = response.redirect_url;
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+</script>
+{% endblock %}
