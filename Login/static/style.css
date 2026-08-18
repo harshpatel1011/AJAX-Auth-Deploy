@@ -1,20 +1,20 @@
 :root {
-    /* Color Palette - Claude Inspired Orange & Dark Theme */
-    --bg-main: #1A1815;      /* Deep warm charcoal */
-    --bg-card: #211E1A;      /* Slightly lighter warm charcoal for cards */
-    --bg-card-hover: #2B2723; /* Warm tone for hover */
-    --border-color: #3A352F; /* Warm dark gray borders */
-    
-    --text-primary: #F2EEE8; /* Warm off-white */
-    --text-secondary: #C4BCB2; /* Medium warm gray text */
-    --text-muted: #8A8177;   /* Muted warm gray text */
-    
-    --primary: #E07A52;      /* Claude orange, slightly brighter for contrast */
-    --primary-hover: #F08D63;/* Lighter orange hover (lighten on dark bg) */
-    
-    --success: #34d399;      
-    --warning: #fbbf24;      
-    --danger: #f87171;  
+    /* Premium Dark & Purple — Coder Edition */
+    --bg-main: #09090f;
+    --bg-card: #13111c;
+    --bg-card-hover: #1c1828;
+    --border-color: #322b46;
+
+    --text-primary: #f8f7ff;
+    --text-secondary: #c8c2dd;
+    --text-muted: #7a7495;
+
+    --primary: #8b5cf6;
+    --primary-hover: #a78bfa;
+
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
 
     /* Syntax ramp */
     --syntax-keyword: #ff79b0;
@@ -22,14 +22,11 @@
     --syntax-function: #7dd3fc;
     --syntax-number: #f59e0b;
     --syntax-type: #a78bfa;
-    --syntax-comment: #5a5670;     
+    --syntax-comment: #5a5670;
 
-    /* Shadows & Effects */
-
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-    --border-radius-sm: 0px;    
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --border-radius-sm: 0px;
     --transition-fast: 0.2s ease;
-
 }
 
 * {
